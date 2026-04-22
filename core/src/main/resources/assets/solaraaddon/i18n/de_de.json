@@ -1,0 +1,99 @@
+{
+  "solaraaddon": {
+    "settings": {
+      "name": "Solara Addon",
+      "header": {
+        "eigenbedarf": {
+          "name": "Eigenbedarf Einstellungen"
+        },
+        "customreinf": {
+          "name": "Custom Reinforcements"
+        },
+        "factionsMemberColor": {
+          "name": "Fraktionen Nametags"
+        },
+        "messages": {
+          "name": "Chat Nachrichten"
+        }
+      },
+      "enabled": {
+        "name": "Aktiviert",
+        "description": "Schaltet das Addon ein oder aus."
+      },
+      "eigenbedarf": {
+        "name": "Eigenbedarf",
+        "description": "Stelle ein, wie viel Eigenbedarf du automatisch auslagern möchtest.",
+        "header": {
+          "amounts": {
+            "name": "Mengen von Substanzen"
+          },
+          "purities": {
+            "name": "Reinheiten"
+          }
+        },
+        "kräuterMenge": {
+          "name": "Kräuter Menge",
+          "description": "Wie viele Kräuter sollen ausgelagert werden?"
+        },
+        "kräuterReinheit": {
+          "name": "Kräuter Reinheit",
+          "description": "Welche Reinheit sollen die Kräuter haben?"
+        },
+        "pulverMenge": {
+          "name": "Pulver Menge",
+          "description": "Wie viel Pulver soll ausgelagert werden?"
+        },
+        "pulverReinheit": {
+          "name": "Pulver Reinheit",
+          "description": "Welche Reinheit soll das Pulver haben?"
+        }
+      },
+      "customReinf": {
+        "name": "Custom Reinforcements",
+        "description": "Passe die Chat-Nachrichten für Reinforcements an.",
+        "header": {
+          "messages": {
+            "name": "Eigene Reinforcement Nachrichten"
+          }
+        },
+        "enableCustomReinf": {
+          "name": "Eigene Nachrichten aktivieren",
+          "description": "Schaltet die individuellen Chat Nachrichten an oder aus."
+        },
+        "CustomReinf": {
+          "name": "Nachricht Layout",
+          "description": "Platzhalter:\n%type% = Art von Reinforcement \n%player% = Spielername\n%location% = Ort\n%distance% = Entfernung\nLässt du das Feld leer, wird das Standard-Design verwendet."
+        },
+        "testReinf": {
+          "name": "Test-Nachricht Senden",
+          "text": "Senden",
+          "description": "Sendet eine Vorschau der Reinforcement-Nachricht in deinen Chat (Nur für dich sichtbar)."
+        }
+      },
+      "factionMemberColor": {
+        "name": "Fraktionen Nametags",
+        "description": "Hebt die Mitglieder deiner Fraktion durch farbige Nametags hervor.",
+        "enableFactionMemberColor": {
+          "name": "Farbige Mitglieder aktivieren",
+          "description": "Schaltet die farbigen Nametags für Fraktionsmitglieder ein oder aus."
+        },
+        "faction": {
+          "name": "Fraktion",
+          "description": "Wähle deine aktuelle Fraktion aus."
+        },
+        "color": {
+          "name": "Farbe",
+          "description": "Wähle die Farbe für die Namen deiner Fraktion."
+        }
+      },
+      "FriendlistNotify": {
+        "name": "Freundesliste Benachrichtigung",
+        "description": "Benachrichtigt dich, wenn ein Freund online kommt oder offline geht, falls deaktiviert werden die normalen Chatnachrichten von UnicaCity angezeigt."
+      },
+      "transferTablistColors": {
+        "name": "Tablist-Farben übernehmen",
+        "description": "Überträgt die Namen und Farben aus der Tablist auf die Nametags über den Spielern."
+      }
+    }
+  }
+}

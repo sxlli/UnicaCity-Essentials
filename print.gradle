@@ -1,0 +1,20 @@
+tasks.register('printAllMethods') {
+    doLast {
+        try {
+            def mc = Class.forName('net.labymod.api.client.Minecraft', false, rootProject.buildscript.classLoader)
+            mc.getMethods().each { m ->
+                if(m.name.toLowerCase().contains('screen')) {
+                    println('Minecraft method: ' + m.name)
+                }
+            }
+            def laby = Class.forName('net.labymod.api.LabyAPI', false, rootProject.buildscript.classLoader)
+            laby.getMethods().each { m ->
+                if(m.name.toLowerCase().contains('screen')) {
+                    println('LabyAPI method: ' + m.name)
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace()
+        }
+    }
+}

@@ -1,0 +1,2 @@
+CL: net/labymod/api/client/entity/Entity net/labymod/api/client/entity/Entity
+MD: net/labymod/api/client/entity/Entity/deprecated$position ()Lnet/labymod/api/util/math/vector/FloatVector3; net/labymod/api/client/entity/Entity/position ()Lnet/labymod/api/util/math/vector/FloatVector3;

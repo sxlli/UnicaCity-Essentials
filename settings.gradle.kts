@@ -1,4 +1,4 @@
-rootProject.name = "labymod4-addon-template"
+rootProject.name = "UnicaCity Essentials"
 
 pluginManagement {
     val labyGradlePluginVersion = "0.6.2"

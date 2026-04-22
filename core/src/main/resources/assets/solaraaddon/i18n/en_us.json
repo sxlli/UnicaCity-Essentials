@@ -1,0 +1,99 @@
+{
+  "solaraaddon": {
+    "settings": {
+      "name": "Solara Addon",
+      "header": {
+        "eigenbedarf": {
+          "name": "Eigenbedarf Settings"
+        },
+        "customreinf": {
+          "name": "Custom Reinforcements"
+        },
+        "factionsMemberColor": {
+          "name": "Faction Member Colors"
+        },
+        "messages": {
+          "name": "Chat Messages"
+        }
+      },
+      "enabled": {
+        "name": "Enabled",
+        "description": "Toggles the addon."
+      },
+      "eigenbedarf": {
+        "name": "Eigenbedarf",
+        "description": "Configure your Eigenbedarf.",
+        "header": {
+          "amounts": {
+            "name": "Substances Amount"
+          },
+          "purities": {
+            "name": "Purities"
+          }
+        },
+        "kräuterMenge": {
+          "name": "Herbs Amount",
+          "description": "How many herbs?"
+        },
+        "kräuterReinheit": {
+          "name": "Herbs Purity",
+          "description": "Purity level?"
+        },
+        "pulverMenge": {
+          "name": "Powder Amount",
+          "description": "How much powder?"
+        },
+        "pulverReinheit": {
+          "name": "Powder Purity",
+          "description": "Purity level?"
+        }
+      },
+      "customReinf": {
+        "name": "Custom Reinforcements",
+        "description": "Customize your reinforcement chat messages.",
+        "header": {
+          "messages": {
+            "name": "Custom Reinforcement Messages"
+          }
+        },
+        "enableCustomReinf": {
+          "name": "Enable Custom Reinforcement Messages",
+          "description": "Toggles the custom reinforcement messages. If disabled, the default reinforcement messages will be used."
+        },
+        "CustomReinf": {
+          "name": "Message Layout",
+          "description": "Placeholders:\n%player% = Player name\n%location% = Location\n%distance% = Distance\nLeave empty to use the default design."
+        },
+        "testReinf": {
+          "name": "Send Test Message",
+          "text": "Send",
+          "description": "Sends a preview of the reinforcement message into your chat (client-sided)."
+        }
+      },
+      "factionMemberColor": {
+        "name": "Faction Member Colors",
+        "description": "Highlights the members of your faction by coloring their nametags.",
+        "enableFactionMemberColor": {
+          "name": "Enable Colored Nametags",
+          "description": "Toggles colored nametags for faction members."
+        },
+        "faction": {
+          "name": "Faction",
+          "description": "Select your current faction."
+        },
+        "color": {
+          "name": "Color",
+          "description": "Select the color for the nametags."
+        }
+      },
+      "FriendlistNotify": {
+        "name": "Friendlist Notifications",
+        "description": "Toggles notifications for friendlist changes. If disabled, you will receive the normal chat notification from UnicaCity."
+      },
+      "transferTablistColors": {
+        "name": "Transfer Tablist Colors",
+        "description": "Transfers the names and colors from the tablist to the nametags above the players."
+      }
+    }
+  }
+}
