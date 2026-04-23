@@ -84,6 +84,18 @@
         "color": {
           "name": "Farbe",
           "description": "Wähle die Farbe für die Namen deiner Fraktion."
+        },
+        "enableAllianceMemberColor": {
+          "name": "Bündnis Mitglieder Farbe aktivieren",
+          "description": "Schaltet die farbigen Nametags für Bündnismitglieder ein oder aus."
+        },
+        "allianceFaction": {
+          "name": "Bündnis Fraktion",
+          "description": "Wähle die Fraktion deines Bündnisses aus."
+        },
+        "allianceColor": {
+          "name": "Bündnis Farbe",
+          "description": "Wähle die Farbe für die Namen deines Bündnisses."
         }
       },
       "FriendlistNotify": {

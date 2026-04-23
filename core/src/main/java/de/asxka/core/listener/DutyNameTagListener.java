@@ -7,6 +7,7 @@ import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.render.PlayerNameTagRenderEvent;
 import de.asxka.core.SolaraAddon;
 import de.asxka.core.utils.FactionCache;
+import de.asxka.core.utils.AllianceCache;
 
 public class DutyNameTagListener {
 
@@ -36,9 +37,14 @@ public class DutyNameTagListener {
         boolean inFaction = addon.configuration().factionMemberColor().enableFactionMemberColor().get() 
                             && FactionCache.getMembers().contains(username);
         
+        boolean inAlliance = addon.configuration().factionMemberColor().enableAllianceMemberColor().get()
+                             && AllianceCache.getMembers().contains(username);
+
         net.labymod.api.client.component.format.TextColor factionColor = null;
         if (inFaction) {
             factionColor = addon.configuration().factionMemberColor().color().get().getColor();
+        } else if (inAlliance) {
+            factionColor = addon.configuration().factionMemberColor().allianceColor().get().getColor();
         }
 
         // Fetch TabList Nametag directly onto the player rendering

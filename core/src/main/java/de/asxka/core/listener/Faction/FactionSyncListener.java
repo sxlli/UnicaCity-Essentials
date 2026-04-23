@@ -25,6 +25,7 @@ public class FactionSyncListener {
     private final Pattern factionHeaderPattern = Pattern.compile("={3,}\\s*Mitglieder von (.*?)\\s*\\(\\d+/\\d+\\)\\s*={3,}");
     private boolean capturingMembers = false;
     private long lastHeaderTime = 0;
+    private String capturingFactionName = "";
 
     private final List<String> tempMembers = new ArrayList<>();
 
@@ -52,6 +53,21 @@ public class FactionSyncListener {
                 String cmdName = addon.configuration().factionMemberColor().faction().get().getCommandName();
                 Laby.labyAPI().minecraft().chatExecutor().chat("/memberinfoall " + cmdName, false);
             }).delay(3000, TimeUnit.MILLISECONDS).build().execute();
+        }
+
+        if (addon.configuration().factionMemberColor().enableAllianceMemberColor().get()) {
+            if (addon.configuration().factionMemberColor().allianceFaction().get() != FactionType.ZIVILIST) {
+                if (!de.asxka.core.utils.AllianceCache.hasSyncedOnce() || de.asxka.core.utils.AllianceCache.getMembers().isEmpty()) {
+                    Task.builder(() -> {
+                        String cmdName = addon.configuration().factionMemberColor().allianceFaction().get().getCommandName();
+                        Laby.labyAPI().minecraft().chatExecutor().chat("/memberinfoall " + cmdName, false);
+                    }).delay(4500, TimeUnit.MILLISECONDS).build().execute();
+                }
+            } else {
+                if (!de.asxka.core.utils.AllianceCache.getMembers().isEmpty()) {
+                    de.asxka.core.utils.AllianceCache.save(new ArrayList<>());
+                }
+            }
         }
     }
 
@@ -103,6 +119,7 @@ public class FactionSyncListener {
         Matcher matcher = factionHeaderPattern.matcher(line);
         if (matcher.find()) {
             capturingMembers = true;
+            capturingFactionName = matcher.group(1).trim();
             lastHeaderTime = System.currentTimeMillis();
             tempMembers.clear(); // Liste leeren für neue Abfrage
 
@@ -148,15 +165,33 @@ public class FactionSyncListener {
         if (!capturingMembers) return;
         capturingMembers = false;
 
-        // Speicher in eigener Datei persistent abspeichern
-        FactionCache.save(tempMembers);
+        boolean isAlliance = false;
+        if (addon.configuration().factionMemberColor().enableAllianceMemberColor().get()
+            && addon.configuration().factionMemberColor().allianceFaction().get() != FactionType.ZIVILIST) {
+            String allianceFolderName = addon.configuration().factionMemberColor().allianceFaction().get().getName();
+            if (capturingFactionName.equalsIgnoreCase(allianceFolderName)) {
+                isAlliance = true;
+            }
+        }
 
-        de.asxka.core.utils.NotificationUtils.pushComponentNotification(
-            GradientUtils.gradient("ᴜɴɪᴄᴀᴄɪᴛʏ ᴇѕѕᴇɴᴛɪᴀʟѕ", TextColor.color(0xa17cf7), TextColor.color(0x9337c4)),
-            Component.text("Fraktionsmitglieder erfolgreich synchronisiert! ", NamedTextColor.GRAY)
-                     .append(Component.text("(" + tempMembers.size() + " Mitglieder)", NamedTextColor.GREEN))
-        );
+        // Speicher in eigener Datei persistent abspeichern
+        if (isAlliance) {
+            de.asxka.core.utils.AllianceCache.save(tempMembers);
+            de.asxka.core.utils.NotificationUtils.pushComponentNotification(
+                GradientUtils.gradient("ᴜɴɪᴄᴀᴄɪᴛʏ ᴇѕѕᴇɴᴛɪᴀʟѕ", TextColor.color(0xa17cf7), TextColor.color(0x9337c4)),
+                Component.text("Bündnismitglieder erfolgreich synchronisiert! ", NamedTextColor.GRAY)
+                         .append(Component.text("(" + tempMembers.size() + " Mitglieder)", NamedTextColor.GREEN))
+            );
+        } else {
+            FactionCache.save(tempMembers);
+            de.asxka.core.utils.NotificationUtils.pushComponentNotification(
+                GradientUtils.gradient("ᴜɴɪᴄᴀᴄɪᴛʏ ᴇѕѕᴇɴᴛɪᴀʟѕ", TextColor.color(0xa17cf7), TextColor.color(0x9337c4)),
+                Component.text("Fraktionsmitglieder erfolgreich synchronisiert! ", NamedTextColor.GRAY)
+                         .append(Component.text("(" + tempMembers.size() + " Mitglieder)", NamedTextColor.GREEN))
+            );
+        }
 
         tempMembers.clear();
+        capturingFactionName = "";
     }
 }

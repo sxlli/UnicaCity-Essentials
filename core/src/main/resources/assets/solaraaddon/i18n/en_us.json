@@ -84,6 +84,18 @@
         "color": {
           "name": "Color",
           "description": "Select the color for the nametags."
+        },
+        "enableAllianceMemberColor": {
+          "name": "Enable Alliance Colored Nametags",
+          "description": "Toggles colored nametags for alliance members."
+        },
+        "allianceFaction": {
+          "name": "Alliance Faction",
+          "description": "Select your alliance faction."
+        },
+        "allianceColor": {
+          "name": "Alliance Color",
+          "description": "Select the color for the alliance nametags."
         }
       },
       "FriendlistNotify": {

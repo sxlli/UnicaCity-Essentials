@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class HochseefischerListener {
 
   private final Pattern hochseefischerbeginn = Pattern.compile(
-      "Fahre nun zu den Fischschw.rmen und wird dein Fischenetz mit /catchfish aus.");
+      "\"^\\\\[Fischer] Mit /findschwarm kannst du dir den nächsten Fischschwarm anzeigen lassen\\\\.$\"");
 
   private final Pattern hochseefischercatchfisch = Pattern.compile(
       "Du hast einen Fischschwarm gefunden!");
@@ -77,9 +77,19 @@ public class HochseefischerListener {
     if (player == null)
       return;
 
-      isWaitingForHochseefischerFindSchwarm = false; // Zurücksetzen, damit es nur EINMAL ausgeführt wird
+    isWaitingForHochseefischerFindSchwarm = false; // Zurücksetzen, damit es nur EINMAL ausgeführt wird
+
+    double x = player.position().getX();
+    double y = player.position().getY();
+    double z = player.position().getZ();
+
+    // Überprüfe, ob der Spieler in der Nähe von -570, 62, 161 ist (z.B. innerhalb von 5 Blöcken)
+    if (Math.abs(x - (-570)) < 5 && Math.abs(y - 62) < 5 && Math.abs(z - 161) < 5) {
+      sendCommand("/navi -554/62/107");
+    } else {
       sendCommand("/findschwarm");
     }
+  }
 
   private void sendCommand(String command) {
     Laby.labyAPI().minecraft().chatExecutor().chat(command, false);

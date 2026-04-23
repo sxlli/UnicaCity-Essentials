@@ -13,10 +13,20 @@ public class FactionMemberColorSubSettings extends Config {
   private final ConfigProperty<Boolean> enableFactionMemberColor = new ConfigProperty<>(true);
 
   @DropdownSetting
-  private final ConfigProperty<FactionType> faction = new ConfigProperty<>(FactionType.POLIZEI);
+  private final ConfigProperty<FactionType> faction = new ConfigProperty<>(FactionType.ZIVILIST);
 
   @DropdownSetting
-  private final ConfigProperty<FactionColor> color = new ConfigProperty<>(FactionColor.PINK);
+  private final ConfigProperty<FactionColor> color = new ConfigProperty<>(FactionColor.BLUE);
+
+  @SwitchSetting
+  private final ConfigProperty<Boolean> enableAllianceMemberColor = new ConfigProperty<>(false);
+
+  @DropdownSetting
+  private final ConfigProperty<FactionType> allianceFaction = new ConfigProperty<>(FactionType.ZIVILIST);
+
+  @DropdownSetting
+  private final ConfigProperty<FactionColor> allianceColor = new ConfigProperty<>(FactionColor.DARK_BLUE);
+
 
   public ConfigProperty<Boolean> enableFactionMemberColor() {
     return this.enableFactionMemberColor;
@@ -29,5 +39,16 @@ public class FactionMemberColorSubSettings extends Config {
   public ConfigProperty<FactionColor> color() {
     return this.color;
   }
-}
 
+  public ConfigProperty<Boolean> enableAllianceMemberColor() {
+    return this.enableAllianceMemberColor;
+  }
+
+  public ConfigProperty<FactionType> allianceFaction() {
+    return this.allianceFaction;
+  }
+
+  public ConfigProperty<FactionColor> allianceColor() {
+    return this.allianceColor;
+  }
+}
