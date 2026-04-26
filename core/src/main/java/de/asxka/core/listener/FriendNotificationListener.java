@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class FriendNotificationListener {
 
   private final UnicaCityEssentials addon;
-  public PatternUtils patternUtils;
+  public PatternUtils patternUtils = new PatternUtils();
 
   public FriendNotificationListener(UnicaCityEssentials addon) {
     this.addon = addon;

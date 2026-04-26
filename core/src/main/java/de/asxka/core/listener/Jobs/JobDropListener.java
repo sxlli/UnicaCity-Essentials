@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class JobDropListener {
 
-  public PatternUtils patternUtils;
+  public PatternUtils patternUtils = new PatternUtils();
   private boolean isWaitingForDropFisch = false;
   private boolean isWaitingForDropTabak = false;
   private boolean isWaitingForDropBlumen = false;

@@ -14,7 +14,7 @@ import de.asxka.core.UnicaCityEssentials;
 
 public class FactionMemberDesignListener {
   private final UnicaCityEssentials addon;
-  public PatternUtils patternUtils;
+  public PatternUtils patternUtils = new PatternUtils();
 
   private boolean capturingMembers = false;
   private long lastHeaderTime = 0L;

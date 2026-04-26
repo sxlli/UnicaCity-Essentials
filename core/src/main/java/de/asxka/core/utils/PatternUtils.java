@@ -11,6 +11,7 @@ public class PatternUtils {
   public final Pattern factionHeaderPattern = Pattern.compile("===\\s*Fraktionsmitglieder \\[(.*?)\\]\\s*===");
   public final Pattern factionallHeaderPattern = Pattern.compile("={3,}\\s*Mitglieder von (.*?)\\s*\\(\\d+/\\d+\\)\\s*={3,}");
   public final Pattern reinfPattern = Pattern.compile("(Unterstützung benötigt!|Medic benötigt!|Dringend!) (.+?) benötigt Unterstützung in der Nähe von (.+?)! \\((.+?) Meter entfernt\\)");
+  public final Pattern reinfAcceptPattern = Pattern.compile("(?:(.+?) )?([a-zA-Z0-9_]+) kommt zum Verstärkungsruf von ([a-zA-Z0-9_]+)! \\((.+?) Meter entfernt\\)");
 
   //Nametag Änderungen
   public final Pattern wantedListPattern = Pattern.compile("^\\s*-\\s*(?:\\[.*?\\])?([a-zA-Z0-9_]+)\\s*[|¦]\\s*(\\d+)\\s*WPS");
@@ -30,6 +31,7 @@ public class PatternUtils {
 
   //Sonstiges
   public final Pattern friendStatusPattern = Pattern.compile("» Freundesliste: (.*?) ist nun (Online|Offline)", Pattern.CASE_INSENSITIVE);
+  public final Pattern paydayTimer = Pattern.compile("Pay[dD]ay.*?(\\d+)\\s*/\\s*60\\s*Minuten");
 
   //Fraktionaktivitäten (Bombe, Staatsbank, usw)
   public final Pattern bombplacePattern = Pattern.compile("News: ACHTUNG! Es wurde eine Bombe in der Nähe von (.*?) gefunden!");
@@ -38,4 +40,11 @@ public class PatternUtils {
   public final Pattern bankrobberyStartPattern = Pattern.compile("");
   public final Pattern bankrobberyEndPattern = Pattern.compile("");
   public final Pattern bankrobberyFailedPattern = Pattern.compile("");
+
+  //Geld
+  public final Pattern bankPattern = Pattern.compile("Bankguthaben betr.gt:\\s*[+-]?(\\d+)");
+  public final Pattern bankUpdatePattern = Pattern.compile("Neuer Kontostand:\\s*[+-]?(\\d+)");
+  public final Pattern depositPattern = Pattern.compile("Eingezahlt:\\s*\\+(\\d+)");
+  public final Pattern withdrawPattern = Pattern.compile("Auszahlung:\\s*-(\\d+)");
+  public final Pattern moneyPattern = Pattern.compile("Geld:\\s*[+-]?(\\d+)");
 }

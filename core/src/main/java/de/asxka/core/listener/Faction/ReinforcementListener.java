@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class ReinforcementListener {
 
   private final UnicaCityEssentials addon;
-  public PatternUtils patternUtils;
+  public PatternUtils patternUtils = new PatternUtils();
 
   public ReinforcementListener(UnicaCityEssentials addon) {
     this.addon = addon;
@@ -48,6 +48,45 @@ public class ReinforcementListener {
 
     ChatMessage message = event.chatMessage();
     String plainText = message.getPlainText();
+
+    Matcher acceptMatcher = patternUtils.reinfAcceptPattern.matcher(plainText);
+    if (acceptMatcher.find()) {
+      String faction = acceptMatcher.group(1);
+      if (faction == null) faction = "";
+      else faction = faction.trim() + " ";
+      String acceptingPlayer = acceptMatcher.group(2);
+      String targetPlayer = acceptMatcher.group(3);
+      String distance = acceptMatcher.group(4);
+
+      String customFormat = addon.configuration().customReinf().CustomReinfAccept().get();
+      Component newMessage;
+
+      if (customFormat != null && !customFormat.trim().isEmpty()) {
+        String replacedFormat = customFormat
+            .replace("%faction%", faction)
+            .replace("%rank%", faction)
+            .replace("%prefix%", faction)
+            .replace("%player%", acceptingPlayer)
+            .replace("%target%", targetPlayer)
+            .replace("%distance%", distance + "m");
+        newMessage = LegacyComponentSerializer.legacyAmpersand().deserialize(replacedFormat);
+      } else {
+        newMessage = Component.text()
+            .append(Component.text("\u2794 ", NamedTextColor.DARK_GRAY))
+            .append(Component.text(faction + acceptingPlayer, NamedTextColor.AQUA))
+            .append(Component.text(" \u2794 ", NamedTextColor.DARK_GRAY))
+            .append(Component.text(targetPlayer, NamedTextColor.AQUA))
+            .append(Component.text(" \u2794 ", NamedTextColor.DARK_GRAY))
+            .append(Component.text("(" + distance + "m)", NamedTextColor.AQUA))
+            .build();
+      }
+
+      net.labymod.api.client.component.TextComponent.Builder finalBuilder = Component.text().append(newMessage);
+      extractRemaining(message.component(), acceptMatcher.end(), new int[]{0}, finalBuilder);
+
+      message.edit(finalBuilder.build());
+      return;
+    }
 
     Matcher matcher = patternUtils.reinfPattern.matcher(plainText);
     if (matcher.find()) {

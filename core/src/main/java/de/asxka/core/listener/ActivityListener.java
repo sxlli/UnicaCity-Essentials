@@ -8,7 +8,7 @@ import net.labymod.api.event.client.chat.ChatReceiveEvent;
 public class ActivityListener {
 
   private final ActivityWidget activityWidget;
-  private final PatternUtils patternUtils;
+  public PatternUtils patternUtils = new PatternUtils();
 
   public ActivityListener(ActivityWidget activityWidget, PatternUtils patternUtils) {
     this.activityWidget = activityWidget;

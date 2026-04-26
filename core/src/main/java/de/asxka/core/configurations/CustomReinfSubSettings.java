@@ -20,6 +20,9 @@ public class CustomReinfSubSettings extends Config {
   @TextFieldSetting
   private final ConfigProperty<String> CustomReinf = new ConfigProperty<>("");
 
+  @TextFieldSetting
+  private final ConfigProperty<String> CustomReinfAccept = new ConfigProperty<>("");
+
   @MethodOrder(after = "CustomReinf")
   @ButtonSetting
   public void testReinf(Setting setting) {
@@ -54,6 +57,44 @@ public class CustomReinfSubSettings extends Config {
 
   public ConfigProperty<String> CustomReinf() {
     return this.CustomReinf;
+  }
+
+  public ConfigProperty<String> CustomReinfAccept() {
+    return this.CustomReinfAccept;
+  }
+
+  @MethodOrder(after = "CustomReinfAccept")
+  @ButtonSetting
+  public void testReinfAccept(Setting setting) {
+    String faction = "Polizei ";
+    String acceptingPlayer = "joxxo_";
+    String targetPlayer = "DuckOderSo";
+    String distance = "234";
+
+    String customFormat = this.CustomReinfAccept.get();
+    Component newMessage;
+
+    if (customFormat != null && !customFormat.trim().isEmpty()) {
+      String replacedFormat = customFormat
+          .replace("%faction%", faction)
+          .replace("%rank%", faction)
+          .replace("%prefix%", faction)
+          .replace("%player%", acceptingPlayer)
+          .replace("%target%", targetPlayer)
+          .replace("%distance%", distance + "m");
+      newMessage = net.labymod.api.client.component.serializer.legacy.LegacyComponentSerializer.legacyAmpersand().deserialize(replacedFormat);
+    } else {
+      newMessage = Component.text()
+          .append(Component.text("\u2794 ", net.labymod.api.client.component.format.NamedTextColor.DARK_GRAY))
+          .append(Component.text(faction + acceptingPlayer, net.labymod.api.client.component.format.NamedTextColor.AQUA))
+          .append(Component.text(" \u2794 ", net.labymod.api.client.component.format.NamedTextColor.DARK_GRAY))
+          .append(Component.text(targetPlayer, net.labymod.api.client.component.format.NamedTextColor.AQUA))
+          .append(Component.text(" \u2794 ", net.labymod.api.client.component.format.NamedTextColor.DARK_GRAY))
+          .append(Component.text("(" + distance + "m)", net.labymod.api.client.component.format.NamedTextColor.AQUA))
+          .build();
+    }
+
+    Laby.labyAPI().minecraft().chatExecutor().displayClientMessage(newMessage);
   }
 
   public ConfigProperty<Boolean> enableCustomReinf() {

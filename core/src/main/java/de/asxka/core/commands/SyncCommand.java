@@ -45,6 +45,7 @@ public class SyncCommand extends Command {
           GradientUtils.gradient("ᴜɴɪᴄᴀᴄɪᴛʏ ᴇѕѕᴇɴᴛɪᴀʟѕ", TextColor.color(0xa17cf7), TextColor.color(0x9337c4)),
           Component.text("Synchronisiere Mitglieder der Fraktion " + faction + "...", NamedTextColor.GRAY)
       );
+      de.asxka.core.listener.Faction.FactionSyncListener.requestManualSync();
       Laby.labyAPI().minecraft().chatExecutor().chat("/memberinfoall " + commandName, false);
     }
 
@@ -59,6 +60,7 @@ public class SyncCommand extends Command {
               GradientUtils.gradient("ᴜɴɪᴄᴀᴄɪᴛʏ ᴇѕѕᴇɴᴛɪᴀʟѕ", TextColor.color(0xa17cf7), TextColor.color(0x9337c4)),
               Component.text("Synchronisiere Mitglieder des Bündnisses " + allianceType.getName() + "...", NamedTextColor.GRAY)
           );
+          de.asxka.core.listener.Faction.FactionSyncListener.requestManualSync();
           Laby.labyAPI().minecraft().chatExecutor().chat("/memberinfoall " + allianceCommandName, false);
         }).delay(1500, TimeUnit.MILLISECONDS).build().execute();
       }

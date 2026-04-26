@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class HochseefischerListener {
 
-  public PatternUtils patternUtils;
+  public PatternUtils patternUtils = new PatternUtils();
   public boolean isWaitingForHochseefischerBeginn = false;
   private boolean isWaitingForHochseefischerCatchFisch = false;
   private boolean isWaitingForHochseefischerFindSchwarm = false;

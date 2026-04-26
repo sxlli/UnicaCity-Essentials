@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class SocialMediaChatListener {
 
-  public PatternUtils patternUtils;
+  public PatternUtils patternUtils = new PatternUtils();
 
   @Subscribe
   public void onChatReceive(ChatReceiveEvent event) {

@@ -1,5 +1,6 @@
 package de.asxka.core.widgets;
 
+import de.asxka.core.utils.PatternUtils;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
@@ -10,22 +11,10 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class BankWidget extends TextHudWidget<TextHudWidgetConfig> {
-
-  // Erste Nachricht fürs Bankguthaben (mit . statt ä, um mögliche Encoding-Probleme zu verhindern)
-  private final Pattern bankPattern = Pattern.compile("Bankguthaben betr.gt:\\s*[+-]?(\\d+)");
-  // Zweite Möglichkeit fürs Bankguthaben (Beispiel)
-  private final Pattern bankUpdatePattern = Pattern.compile("Neuer Kontostand:\\s*[+-]?(\\d+)");
-
-  // Nachrichten für Ein- und Auszahlung (um das Bargeld zu berechnen)
-  private final Pattern depositPattern = Pattern.compile("Eingezahlt:\\s*\\+(\\d+)");
-  private final Pattern withdrawPattern = Pattern.compile("Auszahlung:\\s*-(\\d+)");
-
-  // Nachricht fürs Bargeld
-  private final Pattern moneyPattern = Pattern.compile("Geld:\\s*[+-]?(\\d+)"); //
-
   private TextLine bankLine;
   private TextLine moneyLine;
   private final UnicaCityEssentials addon;
+  public PatternUtils patternUtils = new PatternUtils();
 
   public BankWidget(String id, UnicaCityEssentials addon) {
     super(id);
@@ -41,18 +30,18 @@ public class BankWidget extends TextHudWidget<TextHudWidgetConfig> {
     String savedMoney = this.addon.configuration().savedMoneyBalance().get();
 
     this.bankLine = super.createLine("Bank", savedBank + "$");
-    this.moneyLine = super.createLine("Geld", savedMoney + "$");
+    this.moneyLine = super.createLine("Bargeld", savedMoney + "$");
   }
 
   @Subscribe
   public void onChatReceive(ChatReceiveEvent event) {
     String message = event.chatMessage().getPlainText();
 
-    Matcher bankMatcher = bankPattern.matcher(message);
-    Matcher bankUpdateMatcher = bankUpdatePattern.matcher(message);
-    Matcher moneyMatcher = moneyPattern.matcher(message);
-    Matcher depositMatcher = depositPattern.matcher(message);
-    Matcher withdrawMatcher = withdrawPattern.matcher(message);
+    Matcher bankMatcher = patternUtils.bankPattern.matcher(message);
+    Matcher bankUpdateMatcher = patternUtils.bankUpdatePattern.matcher(message);
+    Matcher moneyMatcher = patternUtils.moneyPattern.matcher(message);
+    Matcher depositMatcher = patternUtils.depositPattern.matcher(message);
+    Matcher withdrawMatcher = patternUtils.withdrawPattern.matcher(message);
 
     // Bank-Guthaben aktualisieren (if / else if gekoppelt, da beides die Bank betrifft)
     if (bankMatcher.find()) {

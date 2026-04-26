@@ -18,7 +18,7 @@ public class WantedListener {
   // Static Map um sicherzustellen, dass die Reconnects im gleichen Game-Start überlebt werden.
   private static final Map<String, Integer> wantedLevels = new ConcurrentHashMap<>();
   private long lastWantedsCommandTime = 0;
-  public PatternUtils patternUtils;
+  public PatternUtils patternUtils = new PatternUtils();
 
   @Subscribe
   public void onChatMessageSend(ChatMessageSendEvent event) {

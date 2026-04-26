@@ -61,13 +61,22 @@
           "description": "Toggles the custom reinforcement messages. If disabled, the default reinforcement messages will be used."
         },
         "CustomReinf": {
-          "name": "Message Layout",
+          "name": "Reinforcement Message",
           "description": "Placeholders:\n%player% = Player name\n%location% = Location\n%distance% = Distance\nLeave empty to use the default design."
         },
         "testReinf": {
           "name": "Send Test Message",
           "text": "Send",
           "description": "Sends a preview of the reinforcement message into your chat (client-sided)."
+        },
+        "CustomReinfAccept": {
+          "name": "Reinforcement Accept Message",
+          "description": "Sends a preview of the reinforcement accept message into your chat (client-sided)."
+        },
+        "testReinfAccept": {
+          "name": "Send Test Accept Message",
+          "text": "Send",
+          "description": "Sends a preview of the reinforcement Accept message into your chat (client-sided)."
         }
       },
       "factionMemberColor": {

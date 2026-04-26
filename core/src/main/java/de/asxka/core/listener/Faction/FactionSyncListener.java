@@ -26,11 +26,18 @@ public class FactionSyncListener {
     private boolean capturingMembers = false;
     private long lastHeaderTime = 0;
     private String capturingFactionName = "";
-    public PatternUtils patternUtils;
+    public PatternUtils patternUtils = new PatternUtils();
 
     private boolean isAutoSync = false;
 
     private final List<String> tempMembers = new ArrayList<>();
+
+    private static boolean manualSyncRequested = false;
+
+    public static void requestManualSync() {
+        manualSyncRequested = true;
+        Task.builder(() -> manualSyncRequested = false).delay(5000, TimeUnit.MILLISECONDS).build().execute();
+    }
 
     public FactionSyncListener(UnicaCityEssentials addon) {
         this.addon = addon;
@@ -54,6 +61,7 @@ public class FactionSyncListener {
             // 3 Sekunden nach dem Joinen den Befehl ausführen
             Task.builder(() -> {
                 isAutoSync = true;
+                requestManualSync();
                 String cmdName = addon.configuration().factionMemberColor().faction().get().getCommandName();
                 Laby.labyAPI().minecraft().chatExecutor().chat("/memberinfoall " + cmdName, false);
             }).delay(3000, TimeUnit.MILLISECONDS).build().execute();
@@ -64,6 +72,7 @@ public class FactionSyncListener {
                 if (!de.asxka.core.utils.AllianceCache.hasSyncedOnce() || de.asxka.core.utils.AllianceCache.getMembers().isEmpty()) {
                     Task.builder(() -> {
                         isAutoSync = true;
+                        requestManualSync();
                         String cmdName = addon.configuration().factionMemberColor().allianceFaction().get().getCommandName();
                         Laby.labyAPI().minecraft().chatExecutor().chat("/memberinfoall " + cmdName, false);
                     }).delay(4500, TimeUnit.MILLISECONDS).build().execute();
@@ -123,6 +132,7 @@ public class FactionSyncListener {
         line = line.replaceFirst("^\\[?\\d{1,2}:\\d{2}:\\d{2}\\]?\\s*(»|\\|)?\\s*", "").trim();
         Matcher matcher = patternUtils.factionallHeaderPattern.matcher(line);
         if (matcher.find()) {
+            if (!manualSyncRequested && !isAutoSync) return; // Only process if a sync was requested
             capturingMembers = true;
             capturingFactionName = matcher.group(1).trim();
             lastHeaderTime = System.currentTimeMillis();
@@ -173,8 +183,8 @@ public class FactionSyncListener {
         boolean isAlliance = false;
         if (addon.configuration().factionMemberColor().enableAllianceMemberColor().get()
             && addon.configuration().factionMemberColor().allianceFaction().get() != FactionType.ZIVILIST) {
-            String allianceFolderName = addon.configuration().factionMemberColor().allianceFaction().get().getName();
-            if (capturingFactionName.equalsIgnoreCase(allianceFolderName)) {
+            FactionType allianceType = addon.configuration().factionMemberColor().allianceFaction().get();
+            if (allianceType.matches(capturingFactionName)) {
                 isAlliance = true;
             }
         }
@@ -182,7 +192,7 @@ public class FactionSyncListener {
         // Speicher in eigener Datei persistent abspeichern
         if (isAlliance) {
             de.asxka.core.utils.AllianceCache.save(tempMembers);
-            if (isAutoSync) {
+            if (isAutoSync || manualSyncRequested) {
                 de.asxka.core.utils.NotificationUtils.pushComponentNotification(
                     GradientUtils.gradient("ᴜɴɪᴄᴀᴄɪᴛʏ ᴇѕѕᴇɴᴛɪᴀʟѕ", TextColor.color(0xa17cf7), TextColor.color(0x9337c4)),
                     Component.text("Bündnismitglieder erfolgreich synchronisiert! ", NamedTextColor.GRAY)
@@ -191,9 +201,9 @@ public class FactionSyncListener {
             }
         } else {
             FactionCache.save(tempMembers);
-            if (isAutoSync) {
+            if (isAutoSync || manualSyncRequested) {
                 de.asxka.core.utils.NotificationUtils.pushComponentNotification(
-                    GradientUtils.gradient("ᴜɴɪᴄᴀᴄɪᴛʏ ᴇѕѕᴇɴᴛɪᴀʟѕ", TextColor.color(0xa17cf7), TextColor.color(0x9337c4)),
+                    GradientUtils.gradient("ᴜɴɪᴄᴀᴄɪᴛʏ ᴇѕѕᴇɪᴀʟѕ", TextColor.color(0xa17cf7), TextColor.color(0x9337c4)),
                     Component.text("Fraktionsmitglieder erfolgreich synchronisiert! ", NamedTextColor.GRAY)
                              .append(Component.text("(" + tempMembers.size() + " Mitglieder)", NamedTextColor.GREEN))
                 );
@@ -203,5 +213,6 @@ public class FactionSyncListener {
         tempMembers.clear();
         capturingFactionName = "";
         isAutoSync = false;
+        manualSyncRequested = false;
     }
 }

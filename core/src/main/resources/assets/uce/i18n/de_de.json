@@ -68,6 +68,15 @@
           "name": "Test-Nachricht Senden",
           "text": "Senden",
           "description": "Sendet eine Vorschau der Reinforcement-Nachricht in deinen Chat (Nur für dich sichtbar)."
+        },
+        "CustomReinfAccept": {
+          "name": "Nachricht Akzeptieren Layout",
+          "description": "Hier kannst du die Nachricht anpassen, die im Chat erscheint, wenn du ein Reinforcement akzeptierst. Platzhalter:\n%type% = Art von Reinforcement \n%player% = Spielername\n%location% = Ort\n%distance% = Entfernung\nLässt du das Feld leer, wird das Standard-Design verwendet."
+        },
+        "testReinfAccept": {
+          "name": "Test Akzeptieren Nachricht Senden",
+          "text": "Senden",
+          "description": "Sendet eine Vorschau der Akzeptieren-Nachricht in deinen Chat (Nur für dich sichtbar)."
         }
       },
       "factionMemberColor": {

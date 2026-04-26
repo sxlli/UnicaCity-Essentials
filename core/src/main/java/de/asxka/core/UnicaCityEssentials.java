@@ -110,5 +110,7 @@ public class UnicaCityEssentials extends LabyAddon<UCEConfiguration> {
     this.labyAPI().hudWidgetRegistry().register(new de.asxka.core.widgets.HealthWidget("health"));
     this.labyAPI().hudWidgetRegistry().register(new de.asxka.core.widgets.BankWidget("bank", this));
     this.labyAPI().hudWidgetRegistry().register(new de.asxka.core.widgets.FishingWidget("fishing", this));
+    this.labyAPI().hudWidgetRegistry().register(new de.asxka.core.widgets.PayDayWidget("payday"));
+    this.labyAPI().hudWidgetRegistry().register(new de.asxka.core.widgets.AbsorptionWidget("absorption"));
   }
 }
