@@ -7,16 +7,16 @@ import net.labymod.api.Laby;
 import net.labymod.api.client.chat.command.Command;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
-import de.asxka.core.SolaraAddon;
+import de.asxka.core.UnicaCityEssentials;
 import net.labymod.api.client.component.format.TextColor;
 import net.labymod.api.util.concurrent.task.Task;
 import java.util.concurrent.TimeUnit;
 
 public class SyncCommand extends Command {
 
-  private final SolaraAddon addon;
+  private final UnicaCityEssentials addon;
 
-  public SyncCommand(SolaraAddon addon) {
+  public SyncCommand(UnicaCityEssentials addon) {
     super("sync");
     this.addon = addon;
   }

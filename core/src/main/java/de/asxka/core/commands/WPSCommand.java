@@ -11,7 +11,7 @@ public class WPSCommand extends Command {
 
     @Override
     public boolean execute(String prefix, String[] arguments) {
-        // Wir bauen den eigentlichen Befehl auf. Standardmäßig "/wanteds"
+          // Wir bauen den eigentlichen Befehl auf. Standardmäßig "/wanteds"
         String commandToExecute = "/wanteds";
 
         // Falls der Spieler noch Argumente mitgibt (z.B. "/wps Name"),

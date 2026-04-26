@@ -1,6 +1,6 @@
 package de.asxka.core.commands;
 
-import de.asxka.core.SolaraAddon;
+import de.asxka.core.UnicaCityEssentials;
 import de.asxka.core.utils.GradientUtils;
 import net.labymod.api.client.chat.command.Command;
 import net.labymod.api.client.component.Component;
@@ -9,9 +9,9 @@ import net.labymod.api.client.component.format.TextColor;
 
 public class EinzahlenCommand extends Command {
 
-  private final SolaraAddon addon;
+  private final UnicaCityEssentials addon;
 
-  public EinzahlenCommand(SolaraAddon addon) {
+  public EinzahlenCommand(UnicaCityEssentials addon) {
     super("einzahlen", "bankeinzahlen");
     this.addon = addon;
   }

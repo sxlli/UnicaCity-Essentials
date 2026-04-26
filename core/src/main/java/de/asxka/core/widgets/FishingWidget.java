@@ -7,7 +7,7 @@ import net.labymod.api.event.Subscribe;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.serializer.plain.PlainTextComponentSerializer;
 import net.labymod.api.event.client.world.ItemStackTooltipEvent;
-import de.asxka.core.SolaraAddon;
+import de.asxka.core.UnicaCityEssentials;
 import java.util.List;
 import net.labymod.api.Laby;
 import net.labymod.api.client.entity.player.ClientPlayer;
@@ -20,10 +20,10 @@ import java.util.regex.Pattern;
 public class FishingWidget extends TextHudWidget<TextHudWidgetConfig> {
 
   private TextLine fishingline;
-  private final SolaraAddon addon;
+  private final UnicaCityEssentials addon;
   private final Pattern talentExpPattern = Pattern.compile("\\[Talent\\] \\+([0-99]+) EXP für.*?(?:Angeln|ANGELN|ᴀɴɢᴇʟɴ)");
 
-  public FishingWidget(String id, SolaraAddon addon) {
+  public FishingWidget(String id, UnicaCityEssentials addon) {
     super(id);
     this.addon = addon;
   }

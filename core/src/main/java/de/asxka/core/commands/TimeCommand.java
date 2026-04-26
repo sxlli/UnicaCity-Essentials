@@ -26,15 +26,12 @@ public class TimeCommand extends Command {
     String time = now.format(formatter);
     String date = now.format(dateFormatter);
 
-    this.displayMessage(
-        GradientUtils.gradient(" ᴜᴄᴇ ", TextColor.color(0x6a43e8), TextColor.color(0x405cd6))
-            .append(Component.text("» ", NamedTextColor.DARK_GRAY))
+    Component message = GradientUtils.gradient(" ᴜᴄᴇ ", TextColor.color(0x6a43e8), TextColor.color(0x405cd6))
+        .append(Component.text("» ", NamedTextColor.DARK_GRAY))
         .append(Component.text("Es ist Aktuell ", NamedTextColor.GRAY))
-            .append(GradientUtils.gradient(time, TextColor.color(0x6434eb), TextColor.color(0xa81adb)))
+        .append(GradientUtils.gradient(time, TextColor.color(0x6434eb), TextColor.color(0xa81adb)))
         .append(Component.text(" Uhr und der ", NamedTextColor.GRAY))
-            .append(GradientUtils.gradient(date, TextColor.color(0x6434eb), TextColor.color(0xa81adb))));
+        .append(GradientUtils.gradient(date, TextColor.color(0x6434eb), TextColor.color(0xa81adb)));
     return true;
   }
 }
-
-

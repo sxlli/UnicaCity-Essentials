@@ -1,5 +1,6 @@
 package de.asxka.core.listener.Jobs;
 
+import de.asxka.core.utils.PatternUtils;
 import net.labymod.api.Laby;
 import net.labymod.api.client.entity.player.ClientPlayer;
 import net.labymod.api.event.Subscribe;
@@ -9,16 +10,7 @@ import java.util.regex.Pattern;
 
 public class HochseefischerListener {
 
-  private final Pattern hochseefischerbeginn = Pattern.compile(
-      "\"^\\\\[Fischer] Mit /findschwarm kannst du dir den nächsten Fischschwarm anzeigen lassen\\\\.$\"");
-
-  private final Pattern hochseefischercatchfisch = Pattern.compile(
-      "Du hast einen Fischschwarm gefunden!");
-
-  private final Pattern hochseefischerfindschwarm = Pattern.compile(
-      "frischen Fisch gefangen!");
-
-
+  public PatternUtils patternUtils;
   public boolean isWaitingForHochseefischerBeginn = false;
   private boolean isWaitingForHochseefischerCatchFisch = false;
   private boolean isWaitingForHochseefischerFindSchwarm = false;
@@ -29,15 +21,15 @@ public class HochseefischerListener {
     if (message == null)
       return;
 
-    if (hochseefischerbeginn.matcher(message).find()) {
+    if (patternUtils.hochseefischerbeginn.matcher(message).find()) {
       isWaitingForHochseefischerBeginn = true;
     }
 
-    if (hochseefischercatchfisch.matcher(message).find()) {
+    if (patternUtils.hochseefischercatchfisch.matcher(message).find()) {
       isWaitingForHochseefischerCatchFisch = true;
     }
 
-    if (hochseefischerfindschwarm.matcher(message).find()) {
+    if (patternUtils.hochseefischerfindschwarm.matcher(message).find()) {
       isWaitingForHochseefischerFindSchwarm = true;
     }
   }

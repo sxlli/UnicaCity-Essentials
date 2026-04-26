@@ -1,5 +1,6 @@
 package de.asxka.core.listener.Faction;
 
+import de.asxka.core.utils.PatternUtils;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.component.format.TextColor;
 import net.labymod.api.event.Subscribe;
@@ -16,24 +17,8 @@ public class WantedListener {
 
   // Static Map um sicherzustellen, dass die Reconnects im gleichen Game-Start überlebt werden.
   private static final Map<String, Integer> wantedLevels = new ConcurrentHashMap<>();
-
-  // - [UC]Maagma46 ¦ 69 WPS (Massenmord) [.]
-  // - TanerMonos ¦ 65 WPS (Pfandnahme) [.]
-  private final Pattern wantedListPattern = Pattern.compile("^\\s*-\\s*(?:\\[.*?\\])?([a-zA-Z0-9_]+)\\s*[|¦]\\s*(\\d+)\\s*WPS");
-
-  // NAME´s momentanes WantedLevel: WPSanzahl
-  private final Pattern wantedLevelPattern = Pattern.compile("(?:\\[.*?\\])?([a-zA-Z0-9_]+)['´]s momentanes WantedLevel: (\\d+)");
-
-  // hat NAME´s Akten gelöscht
-  private final Pattern wantedClearedPattern = Pattern.compile("hat (?:\\[.*?\\])?([a-zA-Z0-9_]+)['´]s Akten gel[öo]scht");
-
-  // NAME wurde von JEMAND getötet
-  private final Pattern killedPattern = Pattern.compile("(?:\\[.*?\\])?([a-zA-Z0-9_]+) wurde von .*? get[öo]tet");
-
-  // NAME wurde von JEMAND eingesperrt
-  private final Pattern jailedPattern = Pattern.compile("(?:\\[.*?\\])?([a-zA-Z0-9_]+) wurde von .*? eingesperrt");
-
   private long lastWantedsCommandTime = 0;
+  public PatternUtils patternUtils;
 
   @Subscribe
   public void onChatMessageSend(ChatMessageSendEvent event) {
@@ -66,7 +51,7 @@ public class WantedListener {
     }
 
     // 2. Check for "momentanes WantedLevel: X"
-    Matcher levelMatcher = wantedLevelPattern.matcher(message.trim());
+    Matcher levelMatcher = patternUtils.wantedLevelPattern.matcher(message.trim());
     if (levelMatcher.find()) {
       String name = levelMatcher.group(1);
       int wps = Integer.parseInt(levelMatcher.group(2));
@@ -75,21 +60,21 @@ public class WantedListener {
     }
 
     // 3. Check for cleared wanteds
-    Matcher clearedMatcher = wantedClearedPattern.matcher(message);
+    Matcher clearedMatcher = patternUtils.wantedClearedPattern.matcher(message);
     if (clearedMatcher.find()) {
       String name = clearedMatcher.group(1);
       wantedLevels.remove(name);
     }
 
     // 4. Check for killed
-    Matcher killedMatcher = killedPattern.matcher(message);
+    Matcher killedMatcher = patternUtils.killedPattern.matcher(message);
     if (killedMatcher.find()) {
       String name = killedMatcher.group(1);
       wantedLevels.remove(name);
     }
 
     // 5. Check for jailed
-    Matcher jailedMatcher = jailedPattern.matcher(message);
+    Matcher jailedMatcher = patternUtils.jailedPattern.matcher(message);
     if (jailedMatcher.find()) {
       String name = jailedMatcher.group(1);
       wantedLevels.remove(name);
@@ -97,7 +82,7 @@ public class WantedListener {
   }
 
   private void checkAndAddWanted(String line) {
-    Matcher listMatcher = wantedListPattern.matcher(line);
+    Matcher listMatcher = patternUtils.wantedListPattern.matcher(line);
     if (listMatcher.find()) {
       String name = listMatcher.group(1);
       int wps = Integer.parseInt(listMatcher.group(2));

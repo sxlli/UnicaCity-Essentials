@@ -1,6 +1,7 @@
 package de.asxka.core.listener;
 
 import de.asxka.core.utils.GradientUtils;
+import de.asxka.core.utils.PatternUtils;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.component.format.TextColor;
@@ -12,13 +13,12 @@ import java.util.regex.Pattern;
 
 public class SocialMediaChatListener {
 
-  // "^\\[Social\\-Media\\] ([a-zA-Z0-9_]+) (.*)$" trennt genau zwischen dem Spielernamen (Group 1) und der Nachricht (Group 2)
-  private final Pattern socialMediaPattern = Pattern.compile("^\\[Social\\-Media\\] ([^ ]+) (.*)$");
+  public PatternUtils patternUtils;
 
   @Subscribe
   public void onChatReceive(ChatReceiveEvent event) {
     String plainMessage = event.chatMessage().getPlainText();
-    Matcher matcher = socialMediaPattern.matcher(plainMessage);
+    Matcher matcher = patternUtils.TEAM_SocialMedia_Chat.matcher(plainMessage);
 
     if (matcher.find()) {
       String playerName = matcher.group(1);

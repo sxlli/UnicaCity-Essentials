@@ -1,5 +1,6 @@
 package de.asxka.core.listener.Jobs;
 
+import de.asxka.core.utils.PatternUtils;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.chat.ChatReceiveEvent;
 import net.labymod.api.event.client.lifecycle.GameTickEvent;
@@ -9,12 +10,7 @@ import java.util.regex.Pattern;
 
 public class JobDropListener {
 
-  private final Pattern dropfischPattern = Pattern.compile(
-      "Du hast keine Netze mehr. Bring den gefangenen Fisch zur.ck zum Steg.");
-  private final Pattern droptabakPattern = Pattern.compile(
-      "Bringe es nun zur Shishabar und gibt es mit /droptabak ab.");
-  private final Pattern dropblumenPattern = Pattern.compile(
-      "Bring die Blumen nun zum Gärtner zurück und gebe sie mit /dropblumen ab.");
+  public PatternUtils patternUtils;
   private boolean isWaitingForDropFisch = false;
   private boolean isWaitingForDropTabak = false;
   private boolean isWaitingForDropBlumen = false;
@@ -25,15 +21,15 @@ public class JobDropListener {
     if (message == null)
       return;
 
-    if (dropfischPattern.matcher(message).find()) {
+    if (patternUtils.dropfischPattern.matcher(message).find()) {
       isWaitingForDropFisch = true;
     }
 
-    if (droptabakPattern.matcher(message).find()) {
+    if (patternUtils.droptabakPattern.matcher(message).find()) {
       isWaitingForDropTabak = true;
     }
 
-    if (dropblumenPattern.matcher(message).find()) {
+    if (patternUtils.dropblumenPattern.matcher(message).find()) {
       isWaitingForDropBlumen = true;
     }
   }

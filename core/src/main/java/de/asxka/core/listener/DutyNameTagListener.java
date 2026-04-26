@@ -5,15 +5,15 @@ import net.labymod.api.client.network.NetworkPlayerInfo;
 import net.labymod.api.client.scoreboard.ScoreboardTeam;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.render.PlayerNameTagRenderEvent;
-import de.asxka.core.SolaraAddon;
+import de.asxka.core.UnicaCityEssentials;
 import de.asxka.core.utils.FactionCache;
 import de.asxka.core.utils.AllianceCache;
 
 public class DutyNameTagListener {
 
-    private final SolaraAddon addon;
+    private final UnicaCityEssentials addon;
 
-    public DutyNameTagListener(SolaraAddon addon) {
+    public DutyNameTagListener(UnicaCityEssentials addon) {
         this.addon = addon;
     }
 

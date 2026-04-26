@@ -3,22 +3,23 @@ package de.asxka.core.listener.Faction;
 import de.asxka.core.utils.GradientUtils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import de.asxka.core.utils.PatternUtils;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.TextComponent;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.component.format.TextColor;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.chat.ChatReceiveEvent;
-import de.asxka.core.SolaraAddon;
+import de.asxka.core.UnicaCityEssentials;
 
 public class FactionMemberDesignListener {
-  private final SolaraAddon addon;
-  private final Pattern factionHeaderPattern = Pattern.compile("===\\s*Fraktionsmitglieder \\[(.*?)\\]\\s*===");
+  private final UnicaCityEssentials addon;
+  public PatternUtils patternUtils;
 
   private boolean capturingMembers = false;
   private long lastHeaderTime = 0L;
 
-  public FactionMemberDesignListener(SolaraAddon addon) {
+  public FactionMemberDesignListener(UnicaCityEssentials addon) {
       this.addon = addon;
   }
 
@@ -36,7 +37,7 @@ public class FactionMemberDesignListener {
       String[] lines = plainMessage.split("\n");
       boolean hasHeader = false;
       for (String l : lines) {
-        if (this.factionHeaderPattern.matcher(l.trim()).find()) {
+        if (this.patternUtils.factionHeaderPattern.matcher(l.trim()).find()) {
           hasHeader = true;
           break;
         }
@@ -69,7 +70,7 @@ public class FactionMemberDesignListener {
 
   private Component processLine(String line) {
     line = line.replaceFirst("^\\[?\\d{1,2}:\\d{2}:\\d{2}\\]?\\s*(»|\\|)?\\s*", "").trim();
-    Matcher matcher = this.factionHeaderPattern.matcher(line);
+    Matcher matcher = this.patternUtils.factionHeaderPattern.matcher(line);
     if (matcher.find()) {
       this.capturingMembers = true;
       this.lastHeaderTime = System.currentTimeMillis();

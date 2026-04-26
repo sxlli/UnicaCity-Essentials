@@ -1,6 +1,7 @@
 package de.asxka.core.listener.Faction;
 
-import de.asxka.core.SolaraAddon;
+import de.asxka.core.UnicaCityEssentials;
+import de.asxka.core.utils.PatternUtils;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.component.format.TextDecoration;
@@ -14,10 +15,10 @@ import java.util.regex.Pattern;
 
 public class ReinforcementListener {
 
-  private final SolaraAddon addon;
-  private final Pattern reinfPattern = Pattern.compile("(Unterstützung benötigt!|Medic benötigt!|Dringend!) (.+?) benötigt Unterstützung in der Nähe von (.+?)! \\((.+?) Meter entfernt\\)");
+  private final UnicaCityEssentials addon;
+  public PatternUtils patternUtils;
 
-  public ReinforcementListener(SolaraAddon addon) {
+  public ReinforcementListener(UnicaCityEssentials addon) {
     this.addon = addon;
   }
 
@@ -48,7 +49,7 @@ public class ReinforcementListener {
     ChatMessage message = event.chatMessage();
     String plainText = message.getPlainText();
 
-    Matcher matcher = reinfPattern.matcher(plainText);
+    Matcher matcher = patternUtils.reinfPattern.matcher(plainText);
     if (matcher.find()) {
       String rawType = matcher.group(1); // z.B. "Unterstützung benötigt!", "Medic benötigt!" oder "Dringend!"
       String type;

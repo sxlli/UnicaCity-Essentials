@@ -4,13 +4,12 @@ import net.labymod.api.addon.AddonConfig;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.configuration.loader.annotation.ConfigName;
 import net.labymod.api.configuration.loader.annotation.SpriteSlot;
-import net.labymod.api.configuration.loader.annotation.SpriteTexture;
 import net.labymod.api.configuration.settings.annotation.SettingSection;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 
 @ConfigName("settings")
 //@SpriteTexture("settings") //kommt später
-public class SolaraConfiguration extends AddonConfig {
+public class UCEConfiguration extends AddonConfig {
 
   @SwitchSetting
   @SpriteSlot(y = 0)
@@ -40,6 +39,7 @@ public class SolaraConfiguration extends AddonConfig {
   private final ConfigProperty<String> savedBankBalance = new ConfigProperty<>("0");
   private final ConfigProperty<String> savedMoneyBalance = new ConfigProperty<>("0");
   private final ConfigProperty<String> savedFishingExp = new ConfigProperty<>("0 / 0");
+  private final ConfigProperty<String> savedChestRNG = new ConfigProperty<>("0 / 65");
 
   @Override
   public ConfigProperty<Boolean> enabled() {
@@ -76,5 +76,9 @@ public class SolaraConfiguration extends AddonConfig {
 
   public ConfigProperty<String> savedFishingExp() {
     return this.savedFishingExp;
+  }
+
+  public ConfigProperty<String> savedChestRNG() {
+    return this.savedChestRNG;
   }
 }

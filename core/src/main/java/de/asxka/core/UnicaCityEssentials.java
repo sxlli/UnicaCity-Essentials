@@ -20,15 +20,20 @@ import de.asxka.core.commands.TimeCommand;
 import de.asxka.core.listener.Faction.ReinforcementListener;
 import de.asxka.core.listener.Faction.WantedListener;
 import de.asxka.core.listener.SocialMediaChatListener;
-import de.asxka.core.configurations.SolaraConfiguration;
+import de.asxka.core.configurations.UCEConfiguration;
+import de.asxka.core.listener.ActivityListener;
+import de.asxka.core.utils.PatternUtils;
 
 @AddonMain
-public class SolaraAddon extends LabyAddon<SolaraConfiguration> {
+public class UnicaCityEssentials extends LabyAddon<UCEConfiguration> {
 
   private boolean onUnicaCity = false;
+  private de.asxka.core.widgets.ActivityWidget activityWidget;
 
   @Override
   protected void enable() {
+    this.activityWidget = new de.asxka.core.widgets.ActivityWidget("activity");
+
     this.registerSettingCategory();
 
     this.registerCommands();
@@ -69,12 +74,13 @@ public class SolaraAddon extends LabyAddon<SolaraConfiguration> {
   }
 
   @Override
-  protected Class<SolaraConfiguration> configurationClass() {
-    return SolaraConfiguration.class;
+  protected Class<UCEConfiguration> configurationClass() {
+    return UCEConfiguration.class;
   }
 
   private void registerCommands() {
     this.registerCommand(new TimeCommand());
+
     this.registerCommand(new EigenbedarfCommand(this));
     this.registerCommand(new WPSCommand());
     this.registerCommand(new MemberInfoCommand());
@@ -83,6 +89,7 @@ public class SolaraAddon extends LabyAddon<SolaraConfiguration> {
   }
 
   private void registerListeners() {
+    this.registerListener(new ActivityListener(this.activityWidget, new PatternUtils()));
     this.registerListener(new ReinforcementListener(this));
     this.registerListener(new WantedListener());
     this.registerListener(new SocialMediaChatListener());
@@ -99,6 +106,7 @@ public class SolaraAddon extends LabyAddon<SolaraConfiguration> {
   }
 
   private void registerWidgets() {
+    this.labyAPI().hudWidgetRegistry().register(this.activityWidget);
     this.labyAPI().hudWidgetRegistry().register(new de.asxka.core.widgets.HealthWidget("health"));
     this.labyAPI().hudWidgetRegistry().register(new de.asxka.core.widgets.BankWidget("bank", this));
     this.labyAPI().hudWidgetRegistry().register(new de.asxka.core.widgets.FishingWidget("fishing", this));

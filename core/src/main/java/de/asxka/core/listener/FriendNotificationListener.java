@@ -1,6 +1,7 @@
 package de.asxka.core.listener;
 
 import de.asxka.core.utils.GradientUtils;
+import de.asxka.core.utils.PatternUtils;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.component.format.TextColor;
@@ -8,28 +9,26 @@ import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.chat.ChatReceiveEvent;
 import net.labymod.api.notification.Notification;
-import de.asxka.core.SolaraAddon;
+import de.asxka.core.UnicaCityEssentials;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FriendNotificationListener {
 
-  private final SolaraAddon addon;
+  private final UnicaCityEssentials addon;
+  public PatternUtils patternUtils;
 
-  public FriendNotificationListener(SolaraAddon addon) {
+  public FriendNotificationListener(UnicaCityEssentials addon) {
     this.addon = addon;
   }
 
-  // Fängt ab: » Freundesliste: [UC]NAME ist nun ONLINE! (oder ähnlich)
-  // Beachtet ein optionales Präfix wie [UC], dann den Namen und den Status (Online/Offline)
-  private final Pattern friendStatusPattern = Pattern.compile("» Freundesliste: (.*?) ist nun (Online|Offline)", Pattern.CASE_INSENSITIVE);
 
   @Subscribe
   public void onChatReceive(ChatReceiveEvent event) {
     String message = event.chatMessage().getPlainText();
     if (message == null) return;
 
-    Matcher matcher = friendStatusPattern.matcher(message);
+    Matcher matcher = patternUtils.friendStatusPattern.matcher(message);
     if (matcher.find()) {
       // Wenn die Config-Einstellung deaktiviert ist, machen wir gar nichts (Chatnachricht bleibt normal sichtbar)
       if (!this.addon.configuration().FriendlistNotify().get()) {

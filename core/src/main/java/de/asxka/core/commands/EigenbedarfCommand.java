@@ -4,8 +4,8 @@ import de.asxka.core.utils.GradientUtils;
 import net.labymod.api.client.chat.command.Command;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.format.NamedTextColor;
-import de.asxka.core.SolaraAddon;
-import de.asxka.core.configurations.SolaraConfiguration;
+import de.asxka.core.UnicaCityEssentials;
+import de.asxka.core.configurations.UCEConfiguration;
 import de.asxka.core.configurations.EigenbedarfSubSettings;
 import net.labymod.api.client.component.format.TextColor;
 import net.labymod.api.client.gui.icon.Icon;
@@ -13,16 +13,16 @@ import net.labymod.api.notification.Notification;
 
 public class EigenbedarfCommand extends Command {
 
-  private final SolaraAddon addon;
+  private final UnicaCityEssentials addon;
 
-  public EigenbedarfCommand(SolaraAddon addon) {
+  public EigenbedarfCommand(UnicaCityEssentials addon) {
     super("eigenbedarf", "eb");
     this.addon = addon;
   }
 
   @Override
   public boolean execute(String prefix, String[] arguments) {
-    SolaraConfiguration config = this.addon.configuration();
+    UCEConfiguration config = this.addon.configuration();
     EigenbedarfSubSettings eigenbedarf = config.eigenbedarf();
 
     String krauterMenge = eigenbedarf.krauterMenge().get();

@@ -23,7 +23,7 @@ labyMod {
     }
 
     addonInfo {
-        namespace = "solaraaddon"
+        namespace = "uce"
         displayName = "UnicaCity Essentials"
         author = "asxkaa (0.0.1)"
         description = "Ein Kleines Addon für den Server UnicaCity."

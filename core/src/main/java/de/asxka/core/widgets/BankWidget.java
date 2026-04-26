@@ -5,7 +5,7 @@ import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.chat.ChatReceiveEvent;
-import de.asxka.core.SolaraAddon;
+import de.asxka.core.UnicaCityEssentials;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -25,9 +25,9 @@ public class BankWidget extends TextHudWidget<TextHudWidgetConfig> {
 
   private TextLine bankLine;
   private TextLine moneyLine;
-  private final SolaraAddon addon;
+  private final UnicaCityEssentials addon;
 
-  public BankWidget(String id, SolaraAddon addon) {
+  public BankWidget(String id, UnicaCityEssentials addon) {
     super(id);
     this.addon = addon;
   }
