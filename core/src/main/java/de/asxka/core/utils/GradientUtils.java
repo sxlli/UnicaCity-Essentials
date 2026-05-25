@@ -5,13 +5,6 @@ import net.labymod.api.client.component.format.TextColor;
 
 public class GradientUtils {
 
-  /**
-   * Erstellt ein Component mit einem schönen Farbverlauf.
-   *
-   * @param text Der anzuzeigende Text (z.B. "Solara Addon")
-   * @param colors Die Farben für den Verlauf (min. 2 Farben werden benötigt)
-   * @return Das fertig formatierte Text-Component
-   */
   public static Component gradient(String text, TextColor... colors) {
     if (text == null || text.isEmpty()) {
       return Component.empty();
@@ -44,7 +37,6 @@ public class GradientUtils {
   }
 
   private static TextColor lerpColor(float ratio, TextColor c1, TextColor c2) {
-    // Farben in RGB aufteilen
     int r1 = (c1.value() >> 16) & 0xFF;
     int g1 = (c1.value() >> 8) & 0xFF;
     int b1 = c1.value() & 0xFF;
@@ -58,7 +50,6 @@ public class GradientUtils {
     int g = Math.round(g1 + (g2 - g1) * Math.max(0, Math.min(1, ratio)));
     int b = Math.round(b1 + (b2 - b1) * Math.max(0, Math.min(1, ratio)));
 
-    // Zurück zu einer TextColor konvertieren (Hex Wert)
     return TextColor.color((r << 16) | (g << 8) | b);
   }
 }

@@ -5,10 +5,6 @@ import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
 
-/**
- * Simple HUD widget showing bank and cash balances. The GUI was removed by request,
- * but the widget should remain to display stored bank info.
- */
 public class BankWidget extends TextHudWidget<TextHudWidgetConfig> {
 
   private final UnicaCityEssentials addon;

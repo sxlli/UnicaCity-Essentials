@@ -45,22 +45,9 @@ public class UnicaCityEssentials extends LabyAddon<UCEConfiguration> {
 
     this.registerCommands();
     this.registerListeners();
-    this.registerTags();
     this.registerWidgets();
 
     this.labyAPI().eventBus().registerListener(this);
-  }
-
-  public boolean isOnUnicaCity() {
-    try {
-      if (this.labyAPI().serverController().getCurrentServerData() != null && this.labyAPI().serverController().getCurrentServerData().address() != null) {
-        String address = this.labyAPI().serverController().getCurrentServerData().address().getHost().toLowerCase();
-        return address.contains("unicacity") || this.onUnicaCity;
-      }
-    } catch (Exception e) {
-      // ignore
-    }
-    return this.onUnicaCity;
   }
 
   @Subscribe
@@ -104,10 +91,6 @@ public class UnicaCityEssentials extends LabyAddon<UCEConfiguration> {
     this.registerListener(new BankInfoListener(this));
     this.registerListener(new HochseefischerListener());
     this.registerListener(new CarListener(this.inventoryClicker, this.carLockWidget));
-  }
-
-  private void registerTags() {
-    // Disabled - only DutyNameTagListener for faction colors
   }
 
   private void registerWidgets() {

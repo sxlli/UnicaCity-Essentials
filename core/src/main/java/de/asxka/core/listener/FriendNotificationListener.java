@@ -30,21 +30,17 @@ public class FriendNotificationListener {
 
     Matcher matcher = patternUtils.friendStatusPattern.matcher(message);
     if (matcher.find()) {
-      // Wenn die Config-Einstellung deaktiviert ist, machen wir gar nichts (Chatnachricht bleibt normal sichtbar)
       if (!this.addon.configuration().FriendlistNotify().get()) {
         return;
       }
 
-      // Blendet die eigentliche Nachricht im Chat aus!
       event.setCancelled(true);
 
       String rawPlayerName = matcher.group(1).trim();
       String status = matcher.group(2);      // z.B. "Online" oder "Offline"
 
-      // Entfernt Clan-Tags wie [UC] und unsichtbare Sonderzeichen, um den reinen Minecraft-Namen für den Skin zu ermitteln
       String headName = rawPlayerName.replaceAll("\\[.*?\\]", "").replaceAll("[^a-zA-Z0-9_]", "");
 
-      // Je nach Status färben wir den Text in der Notification etwas anders
       boolean isOnline = status.equalsIgnoreCase("Online");
       TextColor statusColor = isOnline ? NamedTextColor.GREEN : NamedTextColor.RED;
 

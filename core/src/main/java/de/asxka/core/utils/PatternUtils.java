@@ -61,14 +61,10 @@ public class PatternUtils {
   public final Pattern bankPattern = Pattern.compile("Bankguthaben betr.gt:\\s*[+-]?(\\d[\\d.]*)");
   public final Pattern bankUpdatePattern = Pattern.compile("Neuer Kontostand:\\s*[+-]?(\\d[\\d.]*)");
   public final Pattern paydayNewAmountPattern = Pattern.compile("Neuer Betrag:\\s*(\\d[\\d.]*)\\$");
-  // Accept multiple formats for deposit/withdraw messages (commands and statements)
   public final Pattern depositPattern = Pattern.compile("(?i)(?:Eingezahlt)[:\\s]*\\+?\\s*(\\d[\\d.]*)\\$?");
   public final Pattern withdrawPattern = Pattern.compile("(?i)(?:Auszahlung|Abgehoben)[:\\s]*-?\\s*(\\d[\\d.]*)\\$?");
-  // Accept both "Geld: 10$" and "Geld 10$" (some servers omit the colon)
   public final Pattern moneyPattern = Pattern.compile("Geld[:\\s]*?(\\d[\\d.]*)\\$");
-  // Messages that indicate a stats output (/stats)
   public final Pattern statsPattern = Pattern.compile("(?i)\\b(inventar|stat|stats|statistik|statistiken)\\b");
-  // Messages that indicate an account statement output (Kontoauszug)
   public final Pattern accountStatementPattern = Pattern.compile("(?i)\\b(kontoauszug|vorheriger kontostand|neuer kontostand|kontostand)\\b");
   public final Pattern moneyChangePattern = Pattern.compile("([+\u002D\u2212])\\s*(\\d[\\d.]*)\\s*\\$");
 }

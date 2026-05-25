@@ -51,12 +51,11 @@ public class PayDayWidget extends TextHudWidget<TextHudWidgetConfig> {
 
     if (!isAfk) {
       tickCounter++;
-      // 20 ticks = 1 second, 1200 ticks = 60 seconds (1 minute)
       if (tickCounter >= 1200) {
         tickCounter = 0;
         currentMinutes++;
         if (currentMinutes > 60) {
-          currentMinutes = 0; // Reset after reaching 60, adjusting if needed
+          currentMinutes = 0;
         }
         updatePaydayLine();
         savePayday();
@@ -91,7 +90,6 @@ public class PayDayWidget extends TextHudWidget<TextHudWidgetConfig> {
       } catch (NumberFormatException ignored) {}
     }
 
-    // Generic match for UnicaCity afk messages (usually "Du bist nun AFK" / "Du bist nun wieder anwesend")
     if (message.contains("Du bist nun im AFK-Modus.")) {
       isAfk = true;
     } else if (message.contains("Du bist nun nicht mehr im AFK-Modus.") || message.contains("Willkommen zurück!")) {
@@ -103,7 +101,6 @@ public class PayDayWidget extends TextHudWidget<TextHudWidgetConfig> {
   public void onChatMessageSend(ChatMessageSendEvent event) {
     String msg = event.getMessage().toLowerCase();
     if (msg.equals("/afk")) {
-      // Toggle AFK as fallback (if the server messages are different)
       isAfk = !isAfk;
     }
   }

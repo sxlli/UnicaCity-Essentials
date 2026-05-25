@@ -32,7 +32,6 @@ public class FishingWidget extends TextHudWidget<TextHudWidgetConfig> {
   public void load(TextHudWidgetConfig config) {
     super.load(config);
 
-    // Initialisiere die Zeile
     String savedExp = this.addon.configuration().savedFishingExp().get();
     this.fishingline = super.createLine("Fishing EXP", savedExp);
   }
@@ -86,7 +85,6 @@ public class FishingWidget extends TextHudWidget<TextHudWidgetConfig> {
     List<Component> lines = event.getTooltipLines();
     if (lines.isEmpty()) return;
 
-    // Prüfen, ob eine beliebige Zeile im Tooltip das Wort "Angeln" (oder die spezielle Schriftart) enthält.
     boolean isFishingItem = false;
     for (Component comp : lines) {
       String text = PlainTextComponentSerializer.plainText().serialize(comp).trim();
@@ -100,8 +98,6 @@ public class FishingWidget extends TextHudWidget<TextHudWidgetConfig> {
       for (Component comp : lines) {
         String text = PlainTextComponentSerializer.plainText().serialize(comp).trim();
 
-        // Da in der Lore davor anscheinend ein Pfeil (z.B. "-> EXP: 245 / 1000") steht,
-        // nutzen wir contains statt startsWith
         if (text.contains("EXP:")) {
           int idx = text.indexOf("EXP:");
           String expPart = text.substring(idx + 4).trim(); // Schneidet alles vor "EXP:" ab und das "EXP:" selbst

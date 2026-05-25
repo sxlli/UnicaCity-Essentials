@@ -32,7 +32,6 @@ public class ReinforcementListener {
     String raw = LegacyComponentSerializer.legacySection().serialize(message.component());
     String cleanText = raw.replaceAll("§[0-9a-fk-or]", "");
 
-    // --- 1. ACCEPT LOGIK ---
     Matcher acceptMatcher = patternUtils.reinfAcceptPattern.matcher(cleanText);
     if (acceptMatcher.find()) {
       event.setCancelled(true); // Originalnachricht vom Server blockieren
@@ -40,7 +39,6 @@ public class ReinforcementListener {
       return;
     }
 
-    // --- 2. REQUEST LOGIK ---
     Matcher requestMatcher = patternUtils.reinfPattern.matcher(cleanText);
     if (requestMatcher.find()) {
       event.setCancelled(true); // Originalnachricht vom Server blockieren
@@ -54,7 +52,6 @@ public class ReinforcementListener {
     String location = matcher.group(3);
     String distance = matcher.group(4);
 
-    // Bereinige den Ort-String, falls gewünscht (z.B. "in der Nähe von Stadthalle" -> "Stadthalle")
     location = location.replaceAll("^(in der N.he von|an der|am|im|in der|bei der|beim|auf dem|auf der)\\s+", "").trim();
 
     String type = switch (rawType) {
@@ -92,7 +89,7 @@ public class ReinforcementListener {
           .build();
     }
 
-    // Nachricht über den Executor lokal anzeigen
+
     this.addon.labyAPI().minecraft().chatExecutor().displayClientMessage(newMessage);
   }
 
@@ -104,7 +101,6 @@ public class ReinforcementListener {
     String faction = "";
     String acceptingPlayer = fullComerName;
 
-    // Splittet "Polizei [UC]asxkaa" am letzten Leerzeichen
     if (fullComerName.contains(" ")) {
       int lastSpace = fullComerName.lastIndexOf(" ");
       faction = fullComerName.substring(0, lastSpace).trim() + " ";
@@ -133,7 +129,6 @@ public class ReinforcementListener {
           .build();
     }
 
-    // Nachricht über den Executor lokal anzeigen
     this.addon.labyAPI().minecraft().chatExecutor().displayClientMessage(newMessage);
   }
 }

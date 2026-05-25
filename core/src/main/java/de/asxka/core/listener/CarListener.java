@@ -21,7 +21,6 @@ public class CarListener {
   private final CarLockWidget carLockWidget;
   private boolean wasInVehicle = false;
 
-  // Neuer Konstruktor
   public CarListener(InventoryClicker inventoryClicker, CarLockWidget carLockWidget) {
     this.inventoryClicker = inventoryClicker;
     this.carLockWidget = carLockWidget;
@@ -37,7 +36,6 @@ public class CarListener {
 
     if (CarLockmatcher.find()) {
       Laby.labyAPI().minecraft().chatExecutor().chat("/car lock");
-      // Wir verwenden ein Timer-Delay um kurz zu warten, bis das GUI offen ist
       new Timer("CarLockDelay").schedule(new TimerTask() {
         @Override
         public void run() {
@@ -73,19 +71,16 @@ public class CarListener {
     Entity vehicle = player.getVehicle();
     boolean isInVehicle = (vehicle != null);
 
-    // Der Check, ob wir gerade erst eingestiegen sind
     if (isInVehicle && !wasInVehicle) {
-      // Universal-Check über den Klassennamen
       if (vehicle.getClass().getSimpleName().toLowerCase().contains("minecart")) {
         new Timer("CarStartDelay").schedule(new TimerTask() {
           @Override
           public void run() {
             Laby.labyAPI().minecraft().chatExecutor().chat("/car start");
           }
-        }, 500); // 500ms delay (halbe Sekunde)
+        }, 500);
       }
     }
-    // Status für den nächsten Tick speichern
     wasInVehicle = isInVehicle;
   }
 

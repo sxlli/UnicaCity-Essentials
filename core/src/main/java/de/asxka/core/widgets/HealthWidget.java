@@ -19,7 +19,6 @@ public class HealthWidget extends TextHudWidget<TextHudWidgetConfig> {
   public void load(TextHudWidgetConfig config) {
     super.load(config);
 
-    // Initialisiere die Zeile
     this.healthLine = super.createLine("❤", "10.0");
   }
 
@@ -39,7 +38,6 @@ public class HealthWidget extends TextHudWidget<TextHudWidgetConfig> {
     float health = 0;
     float absorption = 0;
 
-    // Use reflection to safely find methods across different Minecraft versions
     for (java.lang.reflect.Method m : player.getClass().getMethods()) {
       if (m.getParameterCount() != 0) continue;
       String name = m.getName().toLowerCase();
@@ -52,16 +50,13 @@ public class HealthWidget extends TextHudWidget<TextHudWidgetConfig> {
       } catch (Exception ignored) {}
     }
 
-    // HP auf den nächsten halben Herzschritt (0.5) aufrunden, um saubere Kommazahlen zu erhalten
     float healthHearts = (float) Math.ceil(health) / 2.0f;
     float absosHearts = (float) Math.ceil(absorption) / 2.0f;
 
     String value;
     if (absosHearts > 0) {
-      // Wenn man Extras (Absorption) hat, mit einem + addiert anzeigen
       value = String.format("%.1f + %.1f", healthHearts, absosHearts);
     } else {
-      // Nur normale Herzen
       value = String.format("%.1f", healthHearts);
     }
 

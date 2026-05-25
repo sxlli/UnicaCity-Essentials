@@ -75,7 +75,6 @@ public class HochseefischerListener {
     double y = player.position().getY();
     double z = player.position().getZ();
 
-    // Überprüfe, ob der Spieler in der Nähe von -570, 62, 161 ist (z.B. innerhalb von 5 Blöcken)
     if (Math.abs(x - (-570)) < 5 && Math.abs(y - 62) < 5 && Math.abs(z - 161) < 5) {
       sendCommand("/navi -554/62/107");
     } else {

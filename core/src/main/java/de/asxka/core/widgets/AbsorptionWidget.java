@@ -14,7 +14,6 @@ public class AbsorptionWidget extends TextHudWidget<TextHudWidgetConfig> {
   private int currentDurationTicks = 0;
   private boolean hadEffectLastTick = false;
 
-  // 90 Sekunden * 20 Ticks = 1800 Ticks
   private final int FIXED_COOLDOWN_TICKS = 1800;
 
   public AbsorptionWidget(String id) {
@@ -75,7 +74,6 @@ public class AbsorptionWidget extends TextHudWidget<TextHudWidgetConfig> {
         }
       }
 
-      // Wenn der Effekt gerade erst aktiviert wurde (neu dazugekommen)
       if (hasAbsorptionNow && !hadEffectLastTick) {
         currentDurationTicks = FIXED_COOLDOWN_TICKS;
       }
