@@ -5,6 +5,7 @@ import de.asxka.core.commands.MemberInfoCommand;
 import de.asxka.core.commands.WPSCommand;
 import de.asxka.core.listener.BankInfoListener;
 import de.asxka.core.listener.CarListener;
+import de.asxka.core.listener.Faction.WantedMessagesListener;
 import de.asxka.core.listener.FriendNotificationListener;
 import de.asxka.core.listener.Jobs.HochseefischerListener;
 import de.asxka.core.listener.Jobs.JobDropListener;
@@ -95,7 +96,7 @@ public class UnicaCityEssentials extends LabyAddon<UCEConfiguration> {
   private void registerListeners() {
     this.registerListener(new ActivityListener(this.activityWidget, new PatternUtils()));
     this.registerListener(new ReinforcementListener(this));
-    this.registerListener(new de.asxka.core.listener.Faction.WantedMessagesListener());
+    this.registerListener(new WantedMessagesListener());
     this.registerListener(new SocialMediaChatListener());
     this.registerListener(new JobDropListener());
     this.registerListener(new FriendNotificationListener(this));

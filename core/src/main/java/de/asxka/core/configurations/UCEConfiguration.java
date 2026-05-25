@@ -8,7 +8,6 @@ import net.labymod.api.configuration.settings.annotation.SettingSection;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 
 @ConfigName("settings")
-//@SpriteTexture("settings") //kommt später
 public class UCEConfiguration extends AddonConfig {
 
   @SwitchSetting
@@ -29,7 +28,6 @@ public class UCEConfiguration extends AddonConfig {
   private final ConfigProperty<Boolean> FriendlistNotify = new ConfigProperty<>(true);
 
   private final ConfigProperty<String> savedFishingExp = new ConfigProperty<>("0 / 0");
-  private final ConfigProperty<String> savedChestRNG = new ConfigProperty<>("0 / 65");
   private final ConfigProperty<String> savedBankBalance = new ConfigProperty<>("0");
   private final ConfigProperty<String> savedMoneyBalance = new ConfigProperty<>("0");
 
@@ -50,13 +48,8 @@ public class UCEConfiguration extends AddonConfig {
     return this.FriendlistNotify;
   }
 
-
   public ConfigProperty<String> savedFishingExp() {
     return this.savedFishingExp;
-  }
-
-  public ConfigProperty<String> savedChestRNG() {
-    return this.savedChestRNG;
   }
 
   public ConfigProperty<String> savedBankBalance() {
