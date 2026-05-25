@@ -1,7 +1,33 @@
 {
   "uce": {
+    "info": {
+      "health": {
+        "lineName": "❤"
+      }
+    },
+    "hudWidget": {
+      "health": {
+        "name": "Herzensanzeige",
+        "description": "Zeigt die aktuellen Herzenanzahl an"
+      },
+      "fishing": {
+        "name": "Angel Information"
+      },
+      "activity": {
+        "name": "Aktivität"
+      },
+      "bank": {
+        "name": "Bank & Geld"
+      },
+      "payday": {
+        "name": "Payday"
+      },
+      "absorption": {
+        "name": "Absorption"
+      }
+    },
     "settings": {
-      "name": "Solara Addon",
+      "name": "UnicaCity Essentials",
       "header": {
         "eigenbedarf": {
           "name": "Eigenbedarf Einstellungen"
@@ -11,6 +37,9 @@
         },
         "factionsMemberColor": {
           "name": "Fraktionen Nametags"
+        },
+        "subtitle": {
+          "name": "Subtitle"
         },
         "messages": {
           "name": "Chat Nachrichten"
@@ -107,11 +136,47 @@
           "description": "Wähle die Farbe für die Namen deines Bündnisses."
         }
       },
+      "subtitle": {
+        "name": "Nametag Subtitle",
+        "description": "Passe den Subtitle unter deinem eigenen Namen an. Du kannst Prefix, Text, Farben und Farbverläufe einstellen.",
+        "prefixText": {
+          "name": "Prefix-Text",
+          "description": "Der Text, der vor deinem Subtitle angezeigt wird."
+        },
+        "showPrefix": {
+          "name": "UCEssentials anzeigen",
+          "description": "Aktiviert oder deaktiviert den Prefix vor deinem Subtitle."
+        },
+        "prefixColor": {
+          "name": "Prefix-Farbe",
+          "description": "Wähle die Farbe für den Prefix."
+        },
+        "subtitleText": {
+          "name": "Subtitle-Text",
+          "description": "Der eigentliche Text, der nur unter deinem Spielernamen angezeigt wird."
+        },
+        "subtitleColor": {
+          "name": "Subtitle-Farbe",
+          "description": "Wähle die Textfarbe, wenn kein Farbverlauf benutzt wird."
+        },
+        "useGradient": {
+          "name": "Gradient aktivieren",
+          "description": "Schaltet einen Farbverlauf für den Subtitle an oder aus."
+        },
+        "gradientStart": {
+          "name": "Gradient Start",
+          "description": "Die erste Farbe für den Verlauf."
+        },
+        "gradientEnd": {
+          "name": "Gradient Ende",
+          "description": "Die zweite Farbe für den Verlauf."
+        }
+      },
       "FriendlistNotify": {
         "name": "Freundesliste Benachrichtigung",
         "description": "Benachrichtigt dich, wenn ein Freund online kommt oder offline geht, falls deaktiviert werden die normalen Chatnachrichten von UnicaCity angezeigt."
       },
-      "transferTablistColors": {
+      "tablistsColors": {
         "name": "Tablist-Farben übernehmen",
         "description": "Überträgt die Namen und Farben aus der Tablist auf die Nametags über den Spielern."
       }

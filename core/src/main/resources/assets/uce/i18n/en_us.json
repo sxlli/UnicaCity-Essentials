@@ -1,7 +1,30 @@
 {
   "uce": {
+    "info": {
+      "health": {
+        "lineName": "❤"
+      }
+    },
+    "hudWidget": {
+      "health": {
+        "name": "Health Display",
+        "description": "Shows health"
+      },
+      "fishing": {
+        "name": "Fishing Information"
+      },
+      "activity": {
+        "name": "Activity"
+      },
+      "payday": {
+        "name": "Payday"
+      },
+      "absorption": {
+        "name": "Absorption"
+      }
+    },
     "settings": {
-      "name": "Solara Addon",
+      "name": "UnicaCity Essentials",
       "header": {
         "eigenbedarf": {
           "name": "Eigenbedarf Settings"
@@ -11,6 +34,9 @@
         },
         "factionsMemberColor": {
           "name": "Faction Member Colors"
+        },
+        "subtitle": {
+          "name": "Subtitle"
         },
         "messages": {
           "name": "Chat Messages"
@@ -107,12 +133,48 @@
           "description": "Select the color for the alliance nametags."
         }
       },
+      "subtitle": {
+        "name": "Nametag Subtitle",
+        "description": "Customize the subtitle shown below your own name only. You can configure prefix, text, colors and gradients.",
+        "prefixText": {
+          "name": "Prefix Text",
+          "description": "The text shown before your subtitle."
+        },
+        "showPrefix": {
+          "name": "Show UCEssentials",
+          "description": "Enables or disables the prefix before your subtitle."
+        },
+        "prefixColor": {
+          "name": "Prefix Color",
+          "description": "Select the color for the prefix."
+        },
+        "subtitleText": {
+          "name": "Subtitle Text",
+          "description": "The main text shown below your player name only."
+        },
+        "subtitleColor": {
+          "name": "Subtitle Color",
+          "description": "Select the text color when no gradient is used."
+        },
+        "useGradient": {
+          "name": "Enable Gradient",
+          "description": "Turns the subtitle gradient on or off."
+        },
+        "gradientStart": {
+          "name": "Gradient Start",
+          "description": "The first color used for the gradient."
+        },
+        "gradientEnd": {
+          "name": "Gradient End",
+          "description": "The second color used for the gradient."
+        }
+      },
       "FriendlistNotify": {
         "name": "Friendlist Notifications",
         "description": "Toggles notifications for friendlist changes. If disabled, you will receive the normal chat notification from UnicaCity."
       },
-      "transferTablistColors": {
-        "name": "Transfer Tablist Colors",
+      "tablistsColors": {
+        "name": "Tablist Colors",
         "description": "Transfers the names and colors from the tablist to the nametags above the players."
       }
     }

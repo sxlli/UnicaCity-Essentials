@@ -66,9 +66,9 @@ public class CustomReinfSubSettings extends Config {
   @MethodOrder(after = "CustomReinfAccept")
   @ButtonSetting
   public void testReinfAccept(Setting setting) {
-    String faction = "Polizei ";
-    String acceptingPlayer = "joxxo_";
-    String targetPlayer = "DuckOderSo";
+    String faction = "TestFraktion ";
+    String acceptingPlayer = "Spieler1";
+    String targetPlayer = "Spieler2";
     String distance = "234";
 
     String customFormat = this.CustomReinfAccept.get();

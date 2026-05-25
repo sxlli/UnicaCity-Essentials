@@ -1,20 +1,23 @@
 package de.asxka.core.widgets;
 
-import de.asxka.core.utils.PatternUtils;
+import de.asxka.core.UnicaCityEssentials;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
-import net.labymod.api.event.Subscribe;
-import net.labymod.api.event.client.chat.ChatReceiveEvent;
-import de.asxka.core.UnicaCityEssentials;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
+/**
+ * Simple HUD widget showing bank and cash balances. The GUI was removed by request,
+ * but the widget should remain to display stored bank info.
+ */
 public class BankWidget extends TextHudWidget<TextHudWidgetConfig> {
-  private TextLine bankLine;
-  private TextLine moneyLine;
+
   private final UnicaCityEssentials addon;
-  public PatternUtils patternUtils = new PatternUtils();
+
+  private TextLine bankLine;
+  private TextLine cashLine;
+
+  private long bankValue;
+  private long cashValue;
 
   public BankWidget(String id, UnicaCityEssentials addon) {
     super(id);
@@ -24,63 +27,70 @@ public class BankWidget extends TextHudWidget<TextHudWidgetConfig> {
   @Override
   public void load(TextHudWidgetConfig config) {
     super.load(config);
-
-    // Initialisiere die Zeile mit den gespeicherten Werten
-    String savedBank = this.addon.configuration().savedBankBalance().get();
-    String savedMoney = this.addon.configuration().savedMoneyBalance().get();
-
-    this.bankLine = super.createLine("Bank", savedBank + "$");
-    this.moneyLine = super.createLine("Bargeld", savedMoney + "$");
+    this.bankValue = parseStoredAmount(this.addon.configuration().savedBankBalance().get());
+    this.cashValue = parseStoredAmount(this.addon.configuration().savedMoneyBalance().get());
+    this.bankLine = super.createLine("Bank", formatAmount(this.bankValue));
+    this.cashLine = super.createLine("Bargeld", formatAmount(this.cashValue));
+    refresh();
   }
 
-  @Subscribe
-  public void onChatReceive(ChatReceiveEvent event) {
-    String message = event.chatMessage().getPlainText();
+  public void setBankValue(long value) {
+    this.bankValue = Math.max(0L, value);
+    this.addon.configuration().savedBankBalance().set(Long.toString(this.bankValue));
+    refresh();
+  }
 
-    Matcher bankMatcher = patternUtils.bankPattern.matcher(message);
-    Matcher bankUpdateMatcher = patternUtils.bankUpdatePattern.matcher(message);
-    Matcher moneyMatcher = patternUtils.moneyPattern.matcher(message);
-    Matcher depositMatcher = patternUtils.depositPattern.matcher(message);
-    Matcher withdrawMatcher = patternUtils.withdrawPattern.matcher(message);
+  public void addBankValue(long delta) {
+    setBankValue(this.bankValue + delta);
+  }
 
-    // Bank-Guthaben aktualisieren (if / else if gekoppelt, da beides die Bank betrifft)
-    if (bankMatcher.find()) {
-      String value = bankMatcher.group(1);
-      this.addon.configuration().savedBankBalance().set(value);
-      this.bankLine.updateAndFlush(value + "$");
-    } else if (bankUpdateMatcher.find()) {
-      String value = bankUpdateMatcher.group(1);
-      this.addon.configuration().savedBankBalance().set(value);
-      this.bankLine.updateAndFlush(value + "$");
+  public void setCashValue(long value) {
+    this.cashValue = Math.max(0L, value);
+    this.addon.configuration().savedMoneyBalance().set(Long.toString(this.cashValue));
+    refresh();
+  }
+
+  public void addCashValue(long delta) {
+    setCashValue(this.cashValue + delta);
+  }
+
+  @Override
+  public void onTick(boolean isEditorContext) {
+    if (isEditorContext) {
+      this.bankLine.updateAndFlush("Bank: 1.234.567$");
+      this.cashLine.updateAndFlush("Bargeld: 12.345$");
+      return;
     }
 
-    // Bargeld aktualisieren (in einem eigenen Block, falls Server die Nachrichten kombiniert schickt)
-    if (moneyMatcher.find()) {
-      String value = moneyMatcher.group(1);
-      this.addon.configuration().savedMoneyBalance().set(value);
-      this.moneyLine.updateAndFlush(value + "$");
-    } else if (depositMatcher.find()) {
-      // Geld eingezahlt -> Bargeld abziehen
-      int change = Integer.parseInt(depositMatcher.group(1));
-      int currentMoney = 0;
-      try {
-        currentMoney = Integer.parseInt(this.addon.configuration().savedMoneyBalance().get());
-      } catch(Exception ignored){}
+    refresh();
+  }
 
-      int newMoney = Math.max(0, currentMoney - change); // nicht unter 0 gehen
-      this.addon.configuration().savedMoneyBalance().set(String.valueOf(newMoney));
-      this.moneyLine.updateAndFlush(newMoney + "$");
-    } else if (withdrawMatcher.find()) {
-      // Geld ausgezahlt -> Bargeld aufstocken
-      int change = Integer.parseInt(withdrawMatcher.group(1));
-      int currentMoney = 0;
-      try {
-        currentMoney = Integer.parseInt(this.addon.configuration().savedMoneyBalance().get());
-      } catch(Exception ignored){}
+  private void refresh() {
+    if (this.bankLine != null) {
+      this.bankLine.updateAndFlush(formatAmount(this.bankValue));
+    }
+    if (this.cashLine != null) {
+      this.cashLine.updateAndFlush(formatAmount(this.cashValue));
+    }
+  }
 
-      int newMoney = currentMoney + change;
-      this.addon.configuration().savedMoneyBalance().set(String.valueOf(newMoney));
-      this.moneyLine.updateAndFlush(newMoney + "$");
+  private String formatAmount(long value) {
+    return String.format(java.util.Locale.GERMANY, "%,d$", value).replace(',', '.');
+  }
+
+  private long parseStoredAmount(String value) {
+    if (value == null || value.trim().isEmpty()) {
+      return 0L;
+    }
+
+    try {
+      return Long.parseLong(value.replace(".", "").replace(",", "").replace("$", "").trim());
+    } catch (Exception ignored) {
+      return 0L;
     }
   }
 }
+
+
+
+

@@ -5,6 +5,7 @@ import net.labymod.api.client.entity.player.ClientPlayer;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
+import net.labymod.api.client.world.item.ItemStack;
 
 public class HealthWidget extends TextHudWidget<TextHudWidgetConfig> {
 
@@ -21,6 +22,7 @@ public class HealthWidget extends TextHudWidget<TextHudWidgetConfig> {
     // Initialisiere die Zeile
     this.healthLine = super.createLine("❤", "10.0");
   }
+
 
   @Override
   public void onTick(boolean isEditorContext) {
@@ -66,8 +68,3 @@ public class HealthWidget extends TextHudWidget<TextHudWidgetConfig> {
     this.healthLine.updateAndFlush(value);
   }
 }
-
-
-
-
-

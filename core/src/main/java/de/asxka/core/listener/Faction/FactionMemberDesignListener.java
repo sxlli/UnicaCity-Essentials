@@ -133,6 +133,12 @@ public class FactionMemberDesignListener {
     } else if (lowerCaseName.contains("ballas")) {
       color1 = TextColor.color(9317858);
       color2 = TextColor.color(4849888);
+    } else if (lowerCaseName.contains("söldner")) {
+      color1 = TextColor.color(16711680);
+      color2 = TextColor.color(8388608);
+    } else if (lowerCaseName.contains("kerzakov")) {
+      color1 = TextColor.color(16776960);
+      color2 = TextColor.color(8421376);
     } else {
       color1 = TextColor.color(4863444);
       color2 = TextColor.color(8861140);

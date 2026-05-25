@@ -8,7 +8,7 @@ import net.labymod.api.event.client.chat.ChatReceiveEvent;
 public class ActivityListener {
 
   private final ActivityWidget activityWidget;
-  public PatternUtils patternUtils = new PatternUtils();
+  public PatternUtils patternUtils;
 
   public ActivityListener(ActivityWidget activityWidget, PatternUtils patternUtils) {
     this.activityWidget = activityWidget;
@@ -27,18 +27,7 @@ public class ActivityListener {
     if (this.patternUtils.bombdefusePattern.matcher(message).find() ||
         this.patternUtils.bombexplodePattern.matcher(message).find()) {
       this.activityWidget.stopBombTimer();
-      return;
     }
 
-    // Staatsbank
-    if (this.patternUtils.bankrobberyStartPattern.matcher(message).find() && !this.patternUtils.bankrobberyStartPattern.pattern().isEmpty()) {
-      this.activityWidget.startBankTimer();
-      return;
-    }
-    if ((this.patternUtils.bankrobberyEndPattern.matcher(message).find() && !this.patternUtils.bankrobberyEndPattern.pattern().isEmpty()) ||
-        (this.patternUtils.bankrobberyFailedPattern.matcher(message).find() && !this.patternUtils.bankrobberyFailedPattern.pattern().isEmpty())) {
-      this.activityWidget.stopBankTimer();
-      return;
-    }
   }
 }
